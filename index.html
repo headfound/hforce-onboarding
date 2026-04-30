@@ -224,12 +224,12 @@ button{cursor:pointer;font-family:'Inter',sans-serif}
     <h1>Welcome to the Digital Setter Team 👋</h1>
     <p>Select your profile to start your personal onboarding.</p>
     <div class="person-cards">
-      <div class="p-card" onclick="start('kamil')">
+      <div class="p-card" onclick="askPassword('kamil')">
         <div class="avatar av-k">K</div>
         <div class="p-name">Kamil</div>
         <div class="p-role">Data Analyst</div>
       </div>
-      <div class="p-card" onclick="start('mikolaj')">
+      <div class="p-card" onclick="askPassword('mikolaj')">
         <div class="avatar av-m">M</div>
         <div class="p-name">Mikolaj</div>
         <div class="p-role">Data Scientist</div>
@@ -593,6 +593,52 @@ function renderResources(){
 lp();
 const saved=localStorage.getItem('ob_user');
 if(saved)start(saved);
+
+const PASSWORDS = {kamil:'kamilhf-052026', mikolaj:'hf052026-mikolaj'};
+let pwTarget = null;
+function askPassword(u){
+  pwTarget=u;
+  const overlay=document.getElementById('pw-overlay');
+  const av=document.getElementById('pw-avatar');
+  overlay.style.display='flex';
+  av.textContent=u==='kamil'?'K':'M';
+  av.style.cssText=u==='kamil'
+    ?'width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;margin:0 auto 1rem;font-family:Manrope,sans-serif;background:linear-gradient(135deg,#276BAA,#5B4A8A);color:#fff;'
+    :'width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;margin:0 auto 1rem;font-family:Manrope,sans-serif;background:linear-gradient(135deg,#5B4A8A,#8B67B7);color:#fff;';
+  document.getElementById('pw-input').value='';
+  document.getElementById('pw-error').textContent='';
+  setTimeout(()=>document.getElementById('pw-input').focus(),100);
+}
+function checkPassword(){
+  const val=document.getElementById('pw-input').value;
+  if(val===PASSWORDS[pwTarget]){
+    closePassword();
+    start(pwTarget);
+  } else {
+    document.getElementById('pw-error').textContent='Incorrect password. Please try again.';
+    document.getElementById('pw-input').value='';
+    document.getElementById('pw-input').focus();
+  }
+}
+function closePassword(){
+  document.getElementById('pw-overlay').style.display='none';
+  pwTarget=null;
+}
 </script>
+
+<!-- Password Modal -->
+<div id="pw-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(6px);z-index:999;align-items:center;justify-content:center;">
+  <div style="background:#16181f;border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:2rem;width:100%;max-width:360px;text-align:center;">
+    <div id="pw-avatar" style="width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;margin:0 auto 1rem;font-family:'Manrope',sans-serif;"></div>
+    <h2 style="font-size:18px;font-weight:700;margin-bottom:6px;font-family:'Manrope',sans-serif;">Enter your password</h2>
+    <p style="font-size:13px;color:rgba(255,255,255,.45);margin-bottom:1.5rem;">Access is personal — enter your password to continue.</p>
+    <input id="pw-input" type="password" placeholder="Password" onkeydown="if(event.key==='Enter')checkPassword()" style="width:100%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:10px 14px;font-size:14px;color:#fff;outline:none;box-sizing:border-box;margin-bottom:10px;font-family:'Inter',sans-serif;">
+    <div id="pw-error" style="font-size:12px;color:#f87171;margin-bottom:10px;min-height:18px;"></div>
+    <div style="display:flex;gap:8px;">
+      <button onclick="closePassword()" style="flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:10px;font-size:13px;color:rgba(255,255,255,.6);cursor:pointer;font-family:'Inter',sans-serif;">Cancel</button>
+      <button onclick="checkPassword()" style="flex:1;background:linear-gradient(135deg,#276BAA,#8B67B7);border:none;border-radius:10px;padding:10px;font-size:13px;color:#fff;cursor:pointer;font-weight:600;font-family:'Inter',sans-serif;">Continue</button>
+    </div>
+  </div>
+</div>
 </body>
 </html>
