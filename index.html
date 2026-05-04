@@ -614,8 +614,9 @@ function askPassword(u){
 function checkPassword(){
   const val=document.getElementById('pw-input').value;
   if(val===PASSWORDS[pwTarget]){
+    const target=pwTarget;
     closePassword();
-    start(pwTarget);
+    start(target);
   } else {
     document.getElementById('pw-error').textContent='Incorrect password. Please try again.';
     document.getElementById('pw-input').value='';
