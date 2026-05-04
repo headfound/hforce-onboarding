@@ -490,6 +490,10 @@ function start(u){
   updateHeader();show('week');
 }
 function switchUser(){
+  user=null;
+  document.getElementById('hname').textContent='';
+  document.getElementById('hrole').textContent='';
+  document.getElementById('hav').textContent='';
   document.getElementById('welcome').style.display='flex';
   document.getElementById('app').classList.remove('on');
 }
