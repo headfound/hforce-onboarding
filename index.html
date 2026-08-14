@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Onboarding · HForce Data Team</title>
+<title>Onboarding · Hforce</title>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -35,7 +35,7 @@ button{cursor:pointer;font-family:'Inter',sans-serif}
 
 .grad-text{background:linear-gradient(135deg,var(--c1),var(--c2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 
-/* Welcome */
+/* Welcome / team screens */
 .welcome{
   min-height:100vh;display:flex;align-items:center;justify-content:center;padding:2rem;
   background:
@@ -71,6 +71,11 @@ button{cursor:pointer;font-family:'Inter',sans-serif}
 .p-name{font-family:'Manrope',sans-serif;font-weight:700;font-size:17px;margin-bottom:3px}
 .p-role{font-size:12px;color:var(--secondary)}
 .w-note{font-size:11px;color:var(--muted)}
+.screen-back{
+  background:none;border:none;color:var(--muted);font-size:12px;
+  cursor:pointer;margin-top:1.25rem;padding:4px 0;transition:color .15s;display:inline-block
+}
+.screen-back:hover{color:var(--secondary)}
 
 /* App shell */
 .app{display:none;flex-direction:column;min-height:100vh}
@@ -216,12 +221,36 @@ button{cursor:pointer;font-family:'Inter',sans-serif}
 </style>
 </head>
 <body>
-<!-- Welcome -->
-<div class="welcome" id="welcome">
+
+<!-- Screen: Team Select (shown first) -->
+<div class="welcome" id="screen-team">
   <div class="welcome-inner">
-    <img class="w-logo" src="logo.svg" alt="HForce logo">
-    <div class="w-tag">Data Team · May 2026</div>
-    <h1>Welcome to the Digital Setter Team 👋</h1>
+    <img class="w-logo" src="logo.svg" alt="Hforce logo">
+    <div class="w-tag">Hforce · May 2026</div>
+    <h1>Welcome to <span class="grad-text">Hforce</span> 👋</h1>
+    <p>Which team are you joining?</p>
+    <div class="person-cards">
+      <div class="p-card" onclick="selectTeam('setter')">
+        <div class="avatar av-k" style="font-size:13px;letter-spacing:-.02em">DS</div>
+        <div class="p-name">Digital Setter</div>
+        <div class="p-role">Data Team</div>
+      </div>
+      <div class="p-card" onclick="selectTeam('recruiter')">
+        <div class="avatar av-m" style="font-size:13px;letter-spacing:-.02em">DR</div>
+        <div class="p-name">Digital Recruiter</div>
+        <div class="p-role">Recruiting Team</div>
+      </div>
+    </div>
+    <div class="w-note">Progress is saved locally in your browser.</div>
+  </div>
+</div>
+
+<!-- Screen: Digital Setter — person select -->
+<div class="welcome hidden" id="screen-setter">
+  <div class="welcome-inner">
+    <img class="w-logo" src="logo.svg" alt="Hforce logo">
+    <div class="w-tag">Digital Setter · May 2026</div>
+    <h1>Welcome to the <span class="grad-text">Digital Setter</span> Team 👋</h1>
     <p>Select your profile to start your personal onboarding.</p>
     <div class="person-cards">
       <div class="p-card" onclick="askPassword('kamil')">
@@ -236,6 +265,26 @@ button{cursor:pointer;font-family:'Inter',sans-serif}
       </div>
     </div>
     <div class="w-note">Progress is saved locally in your browser.</div>
+    <button class="screen-back" onclick="showTeamSelect()">← Back to team selection</button>
+  </div>
+</div>
+
+<!-- Screen: Digital Recruiter — person select -->
+<div class="welcome hidden" id="screen-recruiter">
+  <div class="welcome-inner">
+    <img class="w-logo" src="logo.svg" alt="Hforce logo">
+    <div class="w-tag">Hforce Data Team · Aug 2026</div>
+    <h1>Welcome to the <span class="grad-text">Hforce</span> Data Team 👋</h1>
+    <p>Select your profile to start your personal onboarding.</p>
+    <div class="person-cards" style="grid-template-columns:1fr;max-width:200px;margin-left:auto;margin-right:auto">
+      <div class="p-card" onclick="askPassword('shalmali')">
+        <div class="avatar av-m">S</div>
+        <div class="p-name">Shalmali</div>
+        <div class="p-role">Data Engineer</div>
+      </div>
+    </div>
+    <div class="w-note">Progress is saved locally in your browser.</div>
+    <button class="screen-back" onclick="showTeamSelect()">← Back to team selection</button>
   </div>
 </div>
 
@@ -243,8 +292,8 @@ button{cursor:pointer;font-family:'Inter',sans-serif}
 <div class="app" id="app">
   <header class="hdr">
     <div class="hdr-logo">
-      <img src="logo.svg" alt="HForce">
-      <span>HForce Data Team</span>
+      <img src="logo.svg" alt="Hforce">
+      <span id="hdr-team-name">Hforce</span>
     </div>
     <nav class="nav">
       <button class="nb on" id="nb-week" onclick="show('week')">Week</button>
@@ -258,7 +307,7 @@ button{cursor:pointer;font-family:'Inter',sans-serif}
         <span style="color:var(--muted)">·</span>
         <span id="hrole" style="color:var(--secondary);font-size:11px"></span>
       </div>
-      <button class="sw-btn" onclick="switchUser()">Switch</button>
+      <button class="sw-btn" onclick="showTeamSelect()">Switch</button>
     </div>
   </header>
 
@@ -296,7 +345,10 @@ button{cursor:pointer;font-family:'Inter',sans-serif}
     </div>
   </main>
 </div>
+
 <script>
+// ─── DIGITAL SETTER DATA ──────────────────────────────────────────────────────
+
 const DAYS = [
   {
     dow:'Mon',
@@ -475,35 +527,246 @@ const RESOURCES = [
   {name:'Roadmap',desc:'Product & project roadmap on Miro',color:'#FFD02F',href:'https://miro.com/app/board/uXjVJ4w6B6k=/?share_link_id=364207553787',sec:'team'},
 ];
 
-let user=null, prog={};
+// ─── SHALMALI / Hforce DATA TEAM — 30-Day Onboarding ─────────────────────────
+// 12 entries: Week 1 (Mon–Fri 17–21 Aug), Week 2 (Mon–Fri 24–28 Aug),
+// Week 3 composite (31 Aug–4 Sep), Week 4 composite (7–11 Sep).
+// All task IDs prefixed 'r' to keep localStorage keys separate from Setter.
+
+const DAYS_RECRUITER = [
+  // ── WEEK 1 ──────────────────────────────────────────────────────────────────
+  {
+    dow:'Mon',
+    date:'17 Aug', theme:'Welcome & Foundational Intros',
+    summary:'Company onboarding with Jan, Intro Product with Anna, Intro Data Analytics with Kamil',
+    sections:[
+      {title:'Welcome & Foundational Intros', tasks:[
+        {id:'r1a', text:'General company onboarding with Jan — time tracking, leave policy, and core values walkthrough', role:'shared'},
+        {id:'r1h', text:'Intro Product with Anna — what Headfound & Hforce do: AI-driven candidate search paired with personal recruitment consulting; four-dimensional matching (skills, culture, motivation, values); the product from a client\'s perspective', role:'shared'},
+        {id:'r1i', text:'Intro Data Analytics with Kamil — first look at how the analytics side of the team works', role:'shared'},
+      ]},
+    ],
+  },
+  {
+    dow:'Tue',
+    date:'18 Aug', theme:'Data Stack Deep-Dive',
+    summary:'Databricks intro with Artem, Data Planning session, Analytics session 2 with Kamil, DE intro with Szymon',
+    sections:[
+      {title:'Data Stack Deep-Dive', tasks:[
+        {id:'r2b', text:'Intro Databricks with Artem (Hforce Data Science team) — workspace layout, clusters, notebooks, access verification', role:'shared'},
+        {id:'r2g', text:'Data Planning session — how sprint/task planning works for the data team', role:'shared'},
+        {id:'r2d', text:'Data Analytics session 2 with Kamil — key datasets, dashboards, deeper walkthrough', role:'shared'},
+        {id:'r2e', text:'Intro Data Engineering with Szymon — pipelines, process documentation walkthrough; note on candidate PII / GDPR handling', role:'shared'},
+      ]},
+    ],
+  },
+  {
+    dow:'Wed',
+    date:'19 Aug', theme:'Start Working & Q&A',
+    summary:'First small well-scoped task started; Q&A with Anna on open questions from Days 1–2',
+    sections:[
+      {title:'Start Working & Q&A', tasks:[
+        {id:'r3g', text:'Picked up a first small, well-scoped task', role:'shared'},
+        {id:'r3d', text:'Q&A with Anna — open questions from Days 1–2 addressed, priorities clarified', role:'shared'},
+      ]},
+    ],
+  },
+  {
+    dow:'Thu',
+    date:'20 Aug', theme:'Embedded in the Team',
+    summary:'Team rituals joined, first task continued with Kamil/Szymon on standby, cross-functional stakeholders met',
+    sections:[
+      {title:'Embedded in the Team', tasks:[
+        {id:'r4a', text:'Joined team rituals — stand-ups, Kanban/planning cadence, Linear etiquette', role:'shared'},
+        {id:'r4d', text:'Continued first task with Kamil/Szymon on standby for questions', role:'shared'},
+        {id:'r4f', text:'Core values in practice; met any remaining cross-functional stakeholders (sales/client success, engineering, leadership)', role:'shared'},
+      ]},
+    ],
+  },
+  {
+    dow:'Fri',
+    date:'21 Aug', theme:'Week 1 Wrap-up',
+    summary:'First task wrapped up, self-guided docs review, Week 1 retro with Anna',
+    sections:[
+      {title:'Week 1 Wrap-up', tasks:[
+        {id:'r5b', text:'Continued / wrapped up first task', role:'shared'},
+        {id:'r5e', text:'Self-guided read-through of data engineering process documentation — open questions listed', role:'shared'},
+        {id:'r5d', text:'Week 1 retro with Anna — what\'s clear, what\'s fuzzy, Week 2 plan adjusted as needed', role:'shared'},
+      ]},
+    ],
+  },
+
+  // ── WEEK 2 ──────────────────────────────────────────────────────────────────
+  {
+    dow:'Mon',
+    date:'24 Aug', theme:'Data Architecture',
+    summary:'Data architecture tour with Szymon, data locations identified, docs review',
+    sections:[
+      {title:'Data Architecture', tasks:[
+        {id:'r6b', text:'Guided tour of the overall data architecture with Szymon — sources → pipelines → warehouse → dashboards', role:'shared'},
+        {id:'r6c', text:'Identified where candidate, client, and matching-algorithm data live', role:'shared'},
+        {id:'r6d', text:'Reviewed data engineering docs together with Szymon — clarified anything unclear from Week 1', role:'shared'},
+      ]},
+    ],
+  },
+  {
+    dow:'Tue',
+    date:'25 Aug', theme:'Pipelines in Practice',
+    summary:'Shadow pipeline run, new source onboarding walkthrough, environment setup and coding standards',
+    sections:[
+      {title:'Pipelines in Practice', tasks:[
+        {id:'r7b', text:'Shadowed Kamil or Szymon on a real pipeline run or dashboard refresh', role:'shared'},
+        {id:'r7c', text:'Walked through how a new data source gets onboarded — schema, validation, deployment', role:'shared'},
+        {id:'r7d', text:'Environment setup: local dev tools, repo access, coding standards / style guide reviewed', role:'shared'},
+      ]},
+    ],
+  },
+  {
+    dow:'Wed',
+    date:'26 Aug', theme:'Data Quality & Governance',
+    summary:'Data quality checks, GDPR/candidate data handling, governance ownership identified',
+    sections:[
+      {title:'Data Quality & Governance', tasks:[
+        {id:'r8b', text:'Data quality checks and monitoring reviewed — what\'s automated and what\'s manual', role:'shared'},
+        {id:'r8d', text:'GDPR / candidate data handling — retention rules, access controls, and anonymization practices reviewed', role:'shared'},
+        {id:'r8c', text:'Met the team member(s) responsible for data governance', role:'shared'},
+      ]},
+    ],
+  },
+  {
+    dow:'Thu',
+    date:'27 Aug', theme:'Cross-Functional Context',
+    summary:'CS/sales sync attended, client metrics understood, backlog reviewed with Anna',
+    sections:[
+      {title:'Cross-Functional Context', tasks:[
+        {id:'r9b', text:'Sat in on a client success or sales sync — saw how data and dashboards get used downstream', role:'shared'},
+        {id:'r9d', text:'Understood key client metrics: placement speed and match quality', role:'shared'},
+        {id:'r9e', text:'Reviewed backlog / ticket queue with Anna', role:'shared'},
+      ]},
+    ],
+  },
+  {
+    dow:'Fri',
+    date:'28 Aug', theme:'Second Task & Week 2 Retro',
+    summary:'Second task started with clear scoping, Week 2 retro with Anna',
+    sections:[
+      {title:'Second Task & Week 2 Retro', tasks:[
+        {id:'r10b', text:'Took on a slightly larger second task, or expanded the scope of the first one; paired on scoping so expectations were clear', role:'shared'},
+        {id:'r10c', text:'Week 2 retro with Anna', role:'shared'},
+      ]},
+    ],
+  },
+
+  // ── WEEK 3 (composite block) ─────────────────────────────────────────────────
+  {
+    dow:'Week 3',
+    date:'31 Aug – 4 Sep', theme:'Hands-On Contribution',
+    summary:'First task with check-ins, full stand-up participation, pairing sessions, Day-15 check-in with Anna',
+    sections:[
+      {title:'Hands-On Contribution', tasks:[
+        {id:'r11a', text:'Worked on the first assigned task with regular check-ins (daily async, or short syncs as needed)', role:'shared'},
+        {id:'r11b', text:'Joined daily stand-ups and the sprint planning / backlog grooming session as a full participant', role:'shared'},
+        {id:'r11c', text:'Pairing session(s) with data engineer or analyst on anything unfamiliar (SQL patterns, notebook conventions, deployment process)', role:'shared'},
+        {id:'r11d', text:'Continued building fluency in the codebase, docs, and dashboards used by the team', role:'shared'},
+        {id:'r11e', text:'Mid-onboarding check-in with Anna around Day 15 — feedback both ways, pace adjusted', role:'shared'},
+      ]},
+    ],
+  },
+
+  // ── WEEK 4 (composite block) ─────────────────────────────────────────────────
+  {
+    dow:'Week 4',
+    date:'7 – 11 Sep', theme:'Ramp to Ownership',
+    summary:'E2E task ownership, team demo, specialisation direction identified, Day-30 review with Anna',
+    sections:[
+      {title:'Ramp to Ownership', tasks:[
+        {id:'r12a', text:'Took ownership of a slightly larger task or a small project end-to-end (with support on standby, not in the driver\'s seat)', role:'shared'},
+        {id:'r12b', text:'Presented what was built/learned so far to the team — short, informal demo', role:'shared'},
+        {id:'r12c', text:'Identified 1–2 areas of the data stack to specialize in over the next quarter', role:'shared'},
+        {id:'r12d', text:'Gathered feedback from data engineer/analyst and any stakeholders worked with', role:'shared'},
+        {id:'r12e', text:'30-day review with Anna — recap, feedback both ways, set goals for Day 60 and Day 90', role:'shared'},
+      ]},
+    ],
+  },
+];
+
+// 30/60/90 goals — verbatim from Shalmali's onboarding plan doc
+const GOALS_RECRUITER = {
+  shalmali:{
+    sub:'First 90 days as a Data Engineer at Hforce',
+    30:['Comfortable navigating the data stack, product, and team rituals; has shipped a first small task','First task completed and reviewed; can explain the data architecture unprompted'],
+    60:['Owns a defined area of the data pipeline or a recurring analysis; contributes in planning','Independently handles tickets in her area; proactively flags data quality issues'],
+    90:['Fully ramped: proposes improvements, mentors on her area of expertise, works with minimal oversight','Drives at least one improvement project from idea to delivery'],
+  },
+};
+
+// ─── STATE & HELPERS ──────────────────────────────────────────────────────────
+
+let user = null, currentTeam = null, prog = {};
+
 function lp(){try{prog=JSON.parse(localStorage.getItem('ob_prog')||'{}')}catch(e){prog={}}}
 function sp(){localStorage.setItem('ob_prog',JSON.stringify(prog))}
 function key(u,id){return u+'_'+id}
+
+function getDays(){return currentTeam==='recruiter'?DAYS_RECRUITER:DAYS}
+function getGoals(){return currentTeam==='recruiter'?GOALS_RECRUITER:GOALS}
+
 function visibleTasks(u,day){return day.sections.flatMap(s=>s.tasks).filter(t=>t.role==='shared'||t.role===u)}
 function dayProg(u,day){const t=visibleTasks(u,day);const d=t.filter(x=>prog[key(u,x.id)]).length;return{done:d,total:t.length,pct:t.length?Math.round(d/t.length*100):0}}
-function totalProg(u){let d=0,t=0;DAYS.forEach(day=>{const p=dayProg(u,day);d+=p.done;t+=p.total});return t?Math.round(d/t*100):0}
+function totalProg(u){let d=0,t=0;getDays().forEach(day=>{const p=dayProg(u,day);d+=p.done;t+=p.total});return t?Math.round(d/t*100):0}
+
+// ─── SCREEN NAVIGATION ───────────────────────────────────────────────────────
+
+function hideAllWelcomeScreens(){
+  ['screen-team','screen-setter','screen-recruiter'].forEach(id=>{
+    document.getElementById(id).classList.add('hidden');
+  });
+}
+
+function showTeamSelect(){
+  user=null;
+  currentTeam=null;
+  document.getElementById('app').classList.remove('on');
+  hideAllWelcomeScreens();
+  document.getElementById('screen-team').classList.remove('hidden');
+}
+
+function selectTeam(team){
+  currentTeam=team;
+  hideAllWelcomeScreens();
+  document.getElementById(team==='setter'?'screen-setter':'screen-recruiter').classList.remove('hidden');
+}
 
 function start(u){
-  user=u;lp();localStorage.setItem('ob_user',u);
-  document.getElementById('welcome').style.display='none';
+  user=u;
+  lp();
+  localStorage.setItem('ob_user',u);
+  localStorage.setItem('ob_team',currentTeam);
+  hideAllWelcomeScreens();
   document.getElementById('app').classList.add('on');
-  updateHeader();show('week');
+  updateHeader();
+  show('week');
 }
-function switchUser(){
-  user=null;
-  document.getElementById('hname').textContent='';
-  document.getElementById('hrole').textContent='';
-  document.getElementById('hav').textContent='';
-  document.getElementById('welcome').style.display='flex';
-  document.getElementById('app').classList.remove('on');
-}
+
+// ─── APP ──────────────────────────────────────────────────────────────────────
+
 function updateHeader(){
-  const roles={kamil:'Data Analyst',mikolaj:'Data Scientist'};
-  const styles={kamil:'background:var(--c1-dim);color:var(--c1-light)',mikolaj:'background:var(--c2-dim);color:var(--c2-light)'};
-  document.getElementById('hname').textContent=user==='kamil'?'Kamil':'Mikolaj';
-  document.getElementById('hrole').textContent=roles[user];
-  const av=document.getElementById('hav');av.textContent=user==='kamil'?'K':'M';av.style.cssText=styles[user];
+  const nameMap={kamil:'Kamil',mikolaj:'Mikolaj',shalmali:'Shalmali'};
+  const roleMap={kamil:'Data Analyst',mikolaj:'Data Scientist',shalmali:'Data Engineer'};
+  const initMap={kamil:'K',mikolaj:'M',shalmali:'S'};
+  const styleMap={
+    kamil:'background:var(--c1-dim);color:var(--c1-light)',
+    mikolaj:'background:var(--c2-dim);color:var(--c2-light)',
+    shalmali:'background:var(--c2-dim);color:var(--c2-light)',
+  };
+  const teamLabel={setter:'Hforce Data Team',recruiter:'Hforce Data Team'};
+  document.getElementById('hdr-team-name').textContent=teamLabel[currentTeam]||'Hforce';
+  document.getElementById('hname').textContent=nameMap[user]||user;
+  document.getElementById('hrole').textContent=roleMap[user]||'';
+  const av=document.getElementById('hav');
+  av.textContent=initMap[user]||user[0].toUpperCase();
+  av.style.cssText=styleMap[user]||'';
 }
+
 function show(screen){
   ['week','day','goals','resources'].forEach(s=>document.getElementById('sc-'+s).classList.add('hidden'));
   document.getElementById('sc-'+screen).classList.remove('hidden');
@@ -512,11 +775,13 @@ function show(screen){
   if(screen==='goals')renderGoals();
   if(screen==='resources')renderResources();
 }
+
 function renderWeek(){
+  const days=getDays();
   const pct=totalProg(user);
   document.getElementById('tpct').textContent=pct+'%';
   document.getElementById('tbar').style.width=pct+'%';
-  document.getElementById('dgrid').innerHTML=DAYS.map((d,i)=>{
+  document.getElementById('dgrid').innerHTML=days.map((d,i)=>{
     const{done,total,pct}=dayProg(user,d);
     const fill=pct===100?'linear-gradient(90deg,#276BAA,#8B67B7)':pct>0?'rgba(139,103,183,0.6)':'rgba(255,255,255,0.08)';
     return`<div class="day-row${pct===100?' done':''}" onclick="openDay(${i})">
@@ -539,11 +804,13 @@ function renderWeek(){
     </div>`;
   }).join('');
 }
+
 function openDay(idx){
+  const days=getDays();
   ['week','day','goals','resources'].forEach(s=>document.getElementById('sc-'+s).classList.add('hidden'));
   ['week','goals','resources'].forEach(s=>{const el=document.getElementById('nb-'+s);if(el)el.classList.remove('on')});
   document.getElementById('sc-day').classList.remove('hidden');
-  const d=DAYS[idx];
+  const d=days[idx];
   document.getElementById('dtag').textContent=`Day ${idx+1} · ${d.dow}, ${d.date}`;
   document.getElementById('dtitle').textContent=d.theme;
   let html='';
@@ -553,7 +820,10 @@ function openDay(idx){
     html+=`<div class="t-section"><div class="t-sec-title">${sec.title}</div>`;
     vis.forEach(t=>{
       const done=!!prog[key(user,t.id)];
-      const badge=t.role!=='shared'?`<span class="r-tag ${t.role==='kamil'?'r-k':'r-m'}">${t.role==='kamil'?'Kamil':'Mikolaj'}</span>`:'';
+      // Show role badge only in Setter flow (where tasks can be Kamil- or Mikolaj-specific)
+      const badge=(currentTeam!=='recruiter'&&t.role!=='shared')
+        ?`<span class="r-tag ${t.role==='kamil'?'r-k':'r-m'}">${t.role==='kamil'?'Kamil':'Mikolaj'}</span>`
+        :'';
       html+=`<div class="t-item${done?' done':''}" id="ti-${t.id}" onclick="toggle('${t.id}')">
         <div class="t-check"><svg class="chk" width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
         <span class="t-text">${t.text}</span>${badge}
@@ -561,22 +831,26 @@ function openDay(idx){
     });
     html+='</div>';
   });
-  html+=`<div class="tip"><strong>Tip:</strong> ${d.tip}</div>`;
+  if(d.tip) html+=`<div class="tip"><strong>Tip:</strong> ${d.tip}</div>`;
   document.getElementById('dtasks').innerHTML=html;
 }
+
 function toggle(taskId){
   const k=key(user,taskId);prog[k]=!prog[k];sp();
   const el=document.getElementById('ti-'+taskId);
   if(el)el.classList.toggle('done',prog[k]);
 }
+
 function renderGoals(){
-  const g=GOALS[user];
+  const goals=getGoals();
+  const g=goals[user];
   document.getElementById('gsub').textContent=g.sub;
   document.getElementById('ggrid').innerHTML=[30,60,90].map(n=>
     `<div class="g-card"><div class="g-n">${n}</div><div class="g-lbl">Days</div>
     <ul class="g-list">${g[n].map(x=>`<li>${x}</li>`).join('')}</ul></div>`
   ).join('');
 }
+
 function renderResources(){
   const secs=[{key:'company',label:'Company Tools & Resources'},{key:'team',label:'Data Team Tools'}];
   document.getElementById('rgrid').innerHTML=secs.map(s=>{
@@ -596,14 +870,18 @@ function renderResources(){
 
 lp();
 
-const PASSWORDS = {kamil:'kamilhf-052026', mikolaj:'hf052026-mikolaj'};
+// ─── PASSWORD GATE ────────────────────────────────────────────────────────────
+
+const PASSWORDS = {kamil:'kamilhf-052026', mikolaj:'hf052026-mikolaj', shalmali:'shalmalihf-082026'};
 let pwTarget = null;
+
 function askPassword(u){
   pwTarget=u;
   const overlay=document.getElementById('pw-overlay');
-  const av=document.getElementById('pw-avatar');
   overlay.style.display='flex';
-  av.textContent=u==='kamil'?'K':'M';
+  const av=document.getElementById('pw-avatar');
+  const initials={kamil:'K',mikolaj:'M',shalmali:'S'};
+  av.textContent=initials[u]||(u[0]||'?').toUpperCase();
   av.style.cssText=u==='kamil'
     ?'width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;margin:0 auto 1rem;font-family:Manrope,sans-serif;background:linear-gradient(135deg,#276BAA,#5B4A8A);color:#fff;'
     :'width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;margin:0 auto 1rem;font-family:Manrope,sans-serif;background:linear-gradient(135deg,#5B4A8A,#8B67B7);color:#fff;';
@@ -611,8 +889,9 @@ function askPassword(u){
   document.getElementById('pw-error').textContent='';
   setTimeout(()=>document.getElementById('pw-input').focus(),100);
 }
+
 function checkPassword(){
-  const val=document.getElementById('pw-input').value;
+  const val=document.getElementById('pw-input').value.trim();
   if(val===PASSWORDS[pwTarget]){
     const target=pwTarget;
     closePassword();
@@ -623,6 +902,7 @@ function checkPassword(){
     document.getElementById('pw-input').focus();
   }
 }
+
 function closePassword(){
   document.getElementById('pw-overlay').style.display='none';
   pwTarget=null;
