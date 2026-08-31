@@ -527,12 +527,12 @@ const RESOURCES = [
   {name:'HEADFOUND Powerhouse',desc:'Central company hub on SharePoint',color:'#0078D4',href:'https://headfound.sharepoint.com',sec:'company'},
   {name:'Hforce Powerhouse',desc:'Hforce team hub on SharePoint',color:'#5E6AD2',href:'https://headfound.sharepoint.com/sites/Hforce',sec:'company'},
   {name:'Outlook',desc:'Company email & calendar',color:'#0072C6',href:'https://outlook.office.com/mail/',sec:'company'},
-  {name:'Databricks Workspace',desc:'Core data engineering & ML platform',color:'#FF3621',href:'https://adb-7465736954680572.12.azuredatabricks.net/',sec:'team'},
+  {name:'Databricks DEV',desc:'Development workspace — data engineering & ML',color:'#FF3621',href:'https://adb-7405607289686048.8.azuredatabricks.net',sec:'team'},
+  {name:'Databricks PROD',desc:'Production workspace — data engineering & ML',color:'#FF3621',href:'https://adb-7405617353761190.10.azuredatabricks.net',sec:'team'},
   {name:'Azure Portal',desc:'Cloud infrastructure & resources',color:'#0089D6',href:'https://portal.azure.com/',sec:'team'},
-  {name:'Git Repository',desc:'Code & notebooks — ds-databricks repo',color:'#F05133',href:'https://github.com/headfound/ds-databricks',sec:'team'},
+  {name:'Git Repository',desc:'Code & notebooks — hf-data-platform repo',color:'#F05133',href:'https://github.com/headfound/hf-data-platform',sec:'team'},
   {name:'Linear',desc:'Project management — sprints, tasks & bugs',color:'#5E6AD2',href:'https://linear.app/hforce',sec:'team'},
   {name:'Team Wiki',desc:'Documentation & processes on Azure DevOps',color:'#0078D4',href:'https://dev.azure.com/headfounddev/HF%20Digital%20Setter/_wiki/wikis/HF-Digital-Setter.wiki/980/Digital-Setter-Wiki',sec:'team'},
-  {name:'Power BI',desc:'Reporting & dashboards',color:'#F2C811',href:'https://app.powerbi.com',sec:'team'},
   {name:'Sprint Planning Board',desc:'Sprint planning & team board on Miro',color:'#FFD02F',href:'https://miro.com/app/board/uXjVJUKN930=/?share_link_id=800033946276',sec:'team'},
   {name:'Roadmap',desc:'Product & project roadmap on Miro',color:'#FFD02F',href:'https://miro.com/app/board/uXjVJ4w6B6k=/?share_link_id=364207553787',sec:'team'},
 ];
@@ -1031,12 +1031,23 @@ function renderResources(){
 lp();
 
 // ─── PASSWORD GATE ────────────────────────────────────────────────────────────
+// Store SHA-256 hex digests only — never plaintext. To generate a new hash:
+//   crypto.subtle.digest('SHA-256', new TextEncoder().encode('the-password'))
+//     .then(buf => console.log([...new Uint8Array(buf)].map(b => b.toString(16).padStart(2,'0')).join('')))
 
-const PASSWORDS = {
-  kamil:'kamilhf-052026', mikolaj:'hf052026-mikolaj', shalmali:'shalmalihf-082026',
-  hasif:'hasifhf-092026', raul:'raulhf-092026'
+const PASSWORD_HASHES = {
+  kamil:'d8f2570e98534fee0c3eaaa9f894bf7f7b70b0772b01b905f286bc2f718649f3',
+  mikolaj:'fd97fdeeeb50d70b669d087d8a4c27342830462fc45db1f87922897ba2333ffe',
+  shalmali:'804c5e77f523e1bbed3156c38f282993a675811868bb6e6b90b8e5cc8a61b57f',
+  hasif:'0fd896521842e0534248e1b65be278b5613fda07fff89a275e1224266ac512be',
+  raul:'d5a05ea44d9c10a7216f34da18db8e118d36a66051fef13743bbc9826bc5ca0d',
 };
 let pwTarget = null;
+
+async function sha256Hex(str){
+  const buf=await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+  return [...new Uint8Array(buf)].map(b=>b.toString(16).padStart(2,'0')).join('');
+}
 
 function askPassword(u){
   pwTarget=u;
@@ -1053,9 +1064,10 @@ function askPassword(u){
   setTimeout(()=>document.getElementById('pw-input').focus(),100);
 }
 
-function checkPassword(){
+async function checkPassword(){
   const val=document.getElementById('pw-input').value.trim();
-  if(val===PASSWORDS[pwTarget]){
+  const hash=await sha256Hex(val);
+  if(hash===PASSWORD_HASHES[pwTarget]){
     const target=pwTarget;
     closePassword();
     start(target);
