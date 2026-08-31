@@ -249,7 +249,7 @@ button{cursor:pointer;font-family:'Inter',sans-serif}
 <div class="welcome hidden" id="screen-setter">
   <div class="welcome-inner">
     <img class="w-logo" src="logo.svg" alt="Hforce logo">
-    <div class="w-tag">Digital Setter · May 2026</div>
+    <div class="w-tag">Digital Setter</div>
     <h1>Welcome to the <span class="grad-text">Digital Setter</span> Team 👋</h1>
     <p>Select your profile to start your personal onboarding.</p>
     <div class="person-cards">
@@ -262,6 +262,16 @@ button{cursor:pointer;font-family:'Inter',sans-serif}
         <div class="avatar av-m">M</div>
         <div class="p-name">Mikolaj</div>
         <div class="p-role">Data Scientist</div>
+      </div>
+      <div class="p-card" onclick="askPassword('hasif')">
+        <div class="avatar av-k">H</div>
+        <div class="p-name">Hasif</div>
+        <div class="p-role">Senior Data Engineer</div>
+      </div>
+      <div class="p-card" onclick="askPassword('raul')">
+        <div class="avatar av-m">R</div>
+        <div class="p-name">Raul</div>
+        <div class="p-role">Senior Data Analyst</div>
       </div>
     </div>
     <div class="w-note">Progress is saved locally in your browser.</div>
@@ -699,6 +709,144 @@ const GOALS_RECRUITER = {
   },
 };
 
+// ─── DIG2 · HASIF & RAUL — Week 1 (01–04 Sep 2026) ───────────────────────────
+// Shared cohort: both onboard together, tasks tagged 'shared' unless role-specific.
+
+const DAYS_DIG2 = [
+  {
+    dow:'Tue', date:'01 Sep', theme:'Welcome & Setup',
+    summary:'Team intro, portal walkthrough, HR onboarding with Lisa, Databricks intro',
+    sections:[
+      {title:'8:00 – 8:30 · Team Daily & Intros', tasks:[
+        {id:'d1a', text:'Team daily attended — introduced to the whole team', role:'shared'},
+      ]},
+      {title:'8:30 – 9:00 · Portal Intro with Niklas', tasks:[
+        {id:'d1b', text:'Onboarding portal introduced by Niklas', role:'shared'},
+      ]},
+      {title:'9:00 – 9:30 · Tool Check-in', tasks:[
+        {id:'d1c', text:'All required tool access checked and confirmed', role:'shared'},
+      ]},
+      {title:'9:30 – 12:00 · General Onboarding with Lisa', tasks:[
+        {id:'d1d', text:'General onboarding session with Lisa completed', role:'shared'},
+      ]},
+      {title:'13:00 – 13:30 · Buddy Time', tasks:[
+        {id:'d1e', text:'First 1:1 with buddy Artem — questions from the morning addressed', role:'hasif'},
+        {id:'d1f', text:'First 1:1 with buddy Selina — questions from the morning addressed', role:'raul'},
+      ]},
+      {title:'13:30 – 14:30 · Databricks Workspace & Data Infrastructure', tasks:[
+        {id:'d1g', text:'Databricks workspace and data infrastructure introduced', role:'shared'},
+      ]},
+      {title:'14:30 – 16:00 · Explore Data, Pipelines & Dashboards', tasks:[
+        {id:'d1h', text:'Explored existing data, pipelines and dashboards independently', role:'shared'},
+      ]},
+      {title:'16:00 – 17:00 · Townhall', tasks:[
+        {id:'d1i', text:'Company Townhall attended', role:'shared'},
+      ]},
+    ],
+    tip:'Buddy-Time is a fixed 30-minute slot — outside of it you work independently, since the team is remote.'
+  },
+  {
+    dow:'Wed', date:'02 Sep', theme:'Peer Deep-Dives & First Tasks',
+    summary:'Docs/Databricks self-study, peer sessions with Kamil/Szymon, first tasks, Linear & GoHighLevel intro',
+    sections:[
+      {title:'8:00 – 8:20 · Team Daily', tasks:[
+        {id:'d2a', text:'Team daily standup attended', role:'shared'},
+      ]},
+      {title:'8:20 – 9:00 · Documentation & Databricks', tasks:[
+        {id:'d2b', text:'Went through documentation and Databricks independently', role:'shared'},
+      ]},
+      {title:'9:00 – 10:00 · Dashboards & KPIs with Kamil', tasks:[
+        {id:'d2c', text:'Session with Kamil on dashboards and KPI understanding', role:'raul'},
+      ]},
+      {title:'9:00 – 10:00 · Pipelines with Szymon', tasks:[
+        {id:'d2d', text:'Session with Szymon on pipelines, focus on scraping ETLs', role:'hasif'},
+      ]},
+      {title:'10:00 – 11:30 · Work on First Tasks', tasks:[
+        {id:'d2e', text:'Worked independently on first assigned task', role:'shared'},
+      ]},
+      {title:'11:30 – 12:00 · Linear Intro', tasks:[
+        {id:'d2f', text:'Linear introduced — workflow, Kanban board, DIG2 conventions', role:'shared'},
+      ]},
+      {title:'13:00 – 15:00 · Work on First Tasks', tasks:[
+        {id:'d2g', text:'Continued independent work on first task', role:'shared'},
+      ]},
+      {title:'15:00 – 16:00 · GoHighLevel Intro with Noorul', tasks:[
+        {id:'d2h', text:'GoHighLevel introduced together with Noorul', role:'shared'},
+      ]},
+      {title:'16:00 – 17:00 · Work on First Tasks', tasks:[
+        {id:'d2i', text:'Continued independent work on first task', role:'shared'},
+      ]},
+    ],
+    tip:'Raul now works fully in Databricks too — GoHighLevel is background context, not his day-to-day tool.'
+  },
+  {
+    dow:'Thu', date:'03 Sep', theme:'Domain Knowledge & 1:1s',
+    summary:'Lead-gen & product domain knowledge, first tasks, individual 1:1s with Niklas',
+    sections:[
+      {title:'8:00 – 8:20 · Team Daily', tasks:[
+        {id:'d3a', text:'Team daily standup attended', role:'shared'},
+      ]},
+      {title:'8:20 – 10:00 · Work on First Tasks', tasks:[
+        {id:'d3b', text:'Continued independent work on first task', role:'shared'},
+      ]},
+      {title:'10:00 – 11:00 · Domain Knowledge: Lead-Gen & Products', tasks:[
+        {id:'d3c', text:'Lead-generation systems and products (HF/TH/ST) explained', role:'shared'},
+      ]},
+      {title:'11:00 – 12:00 · Work on First Tasks', tasks:[
+        {id:'d3d', text:'Continued independent work on first task', role:'shared'},
+      ]},
+      {title:'13:00 – 13:30 · 1:1 with Niklas', tasks:[
+        {id:'d3e', text:'1:1 with Niklas — expectations, role in the team, open questions', role:'hasif'},
+      ]},
+      {title:'13:30 – 14:00 · 1:1 with Niklas', tasks:[
+        {id:'d3f', text:'1:1 with Niklas — expectations, role in the team, open questions', role:'raul'},
+      ]},
+      {title:'14:00 – 17:00 · Work on First Tasks', tasks:[
+        {id:'d3g', text:'Continued independent work on first task', role:'shared'},
+      ]},
+    ],
+    tip:'This is real work, not a dummy exercise — use the 1:1 to flag anything that felt unclear so far.'
+  },
+  {
+    dow:'Fri', date:'04 Sep', theme:'Wrap-up & Retro',
+    summary:'Finishing first tasks, joint Week 1 retro with Niklas, documenting learnings',
+    sections:[
+      {title:'8:00 – 8:20 · Team Daily', tasks:[
+        {id:'d4a', text:'Team daily standup attended', role:'shared'},
+      ]},
+      {title:'8:20 – 12:00 · Work on First Tasks', tasks:[
+        {id:'d4b', text:'Continued independent work on first task', role:'shared'},
+      ]},
+      {title:'13:00 – 14:30 · Work on First Tasks', tasks:[
+        {id:'d4c', text:'Wrapped up / finished first task', role:'shared'},
+      ]},
+      {title:'14:30 – 15:00 · Week 1 Retro with Niklas', tasks:[
+        {id:'d4d', text:'Week 1 retro with Niklas (joint) — feedback, open points, outlook for Week 2', role:'shared'},
+      ]},
+      {title:'15:00 – 17:00 · Work / Documentation', tasks:[
+        {id:'d4e', text:'Continued work / documented what was learned this week', role:'shared'},
+      ]},
+    ],
+    tip:'Write down what stayed unclear this week — Week 2 planning builds directly on this retro.'
+  },
+];
+
+// DRAFT — please review/adjust, these goals were not explicitly discussed yet
+const GOALS_DIG2 = {
+  hasif:{
+    sub:'First 90 days as a Senior Data Engineer',
+    30:['Comfortable navigating the Databricks workspace and Unity Catalog','Completed first Data Engineering tasks independently','Understands the semantic layer and key pipelines'],
+    60:['Actively contributing to the Databricks migration','Owns a defined area of the data pipeline'],
+    90:['End-to-end ownership of a pipeline area','Proposes improvements based on own analysis'],
+  },
+  raul:{
+    sub:'First 90 days as a Senior Data Analyst',
+    30:['Comfortable navigating Databricks and the underlying data model','Took over PowerBI dashboard ownership from Szymon','Understands the queries behind the existing dashboards'],
+    60:['Completed data gap analysis for the Controlling Rebuild','First controlling data migrated into Databricks'],
+    90:['New controlling reporting live in Databricks','Fully independent ownership of the Controlling Rebuild project'],
+  },
+};
+
 // ─── STATE & HELPERS ──────────────────────────────────────────────────────────
 
 let user = null, currentTeam = null, prog = {};
@@ -707,8 +855,15 @@ function lp(){try{prog=JSON.parse(localStorage.getItem('ob_prog')||'{}')}catch(e
 function sp(){localStorage.setItem('ob_prog',JSON.stringify(prog))}
 function key(u,id){return u+'_'+id}
 
-function getDays(){return currentTeam==='recruiter'?DAYS_RECRUITER:DAYS}
-function getGoals(){return currentTeam==='recruiter'?GOALS_RECRUITER:GOALS}
+const DAYS_BY_USER = {
+  kamil: DAYS, mikolaj: DAYS,
+  shalmali: DAYS_RECRUITER,
+  hasif: DAYS_DIG2, raul: DAYS_DIG2,
+};
+const GOALS_ALL = { ...GOALS, ...GOALS_RECRUITER, ...GOALS_DIG2 };
+
+function getDays(){return DAYS_BY_USER[user] || DAYS}
+function getGoals(){return GOALS_ALL}
 
 function visibleTasks(u,day){return day.sections.flatMap(s=>s.tasks).filter(t=>t.role==='shared'||t.role===u)}
 function dayProg(u,day){const t=visibleTasks(u,day);const d=t.filter(x=>prog[key(u,x.id)]).length;return{done:d,total:t.length,pct:t.length?Math.round(d/t.length*100):0}}
@@ -750,13 +905,15 @@ function start(u){
 // ─── APP ──────────────────────────────────────────────────────────────────────
 
 function updateHeader(){
-  const nameMap={kamil:'Kamil',mikolaj:'Mikolaj',shalmali:'Shalmali'};
-  const roleMap={kamil:'Data Analyst',mikolaj:'Data Scientist',shalmali:'Data Engineer'};
-  const initMap={kamil:'K',mikolaj:'M',shalmali:'S'};
+  const nameMap={kamil:'Kamil',mikolaj:'Mikolaj',shalmali:'Shalmali',hasif:'Hasif',raul:'Raul'};
+  const roleMap={kamil:'Data Analyst',mikolaj:'Data Scientist',shalmali:'Data Engineer',hasif:'Senior Data Engineer',raul:'Senior Data Analyst'};
+  const initMap={kamil:'K',mikolaj:'M',shalmali:'S',hasif:'H',raul:'R'};
   const styleMap={
     kamil:'background:var(--c1-dim);color:var(--c1-light)',
     mikolaj:'background:var(--c2-dim);color:var(--c2-light)',
     shalmali:'background:var(--c2-dim);color:var(--c2-light)',
+    hasif:'background:var(--c1-dim);color:var(--c1-light)',
+    raul:'background:var(--c2-dim);color:var(--c2-light)',
   };
   const teamLabel={setter:'Hforce Data Team',recruiter:'Hforce Data Team'};
   document.getElementById('hdr-team-name').textContent=teamLabel[currentTeam]||'Hforce';
@@ -805,6 +962,9 @@ function renderWeek(){
   }).join('');
 }
 
+const ROLE_LABELS = {kamil:'Kamil', mikolaj:'Mikolaj', hasif:'Hasif', raul:'Raul'};
+const ROLE_TAG_CLASS = {kamil:'r-k', mikolaj:'r-m', hasif:'r-k', raul:'r-m'};
+
 function openDay(idx){
   const days=getDays();
   ['week','day','goals','resources'].forEach(s=>document.getElementById('sc-'+s).classList.add('hidden'));
@@ -820,9 +980,9 @@ function openDay(idx){
     html+=`<div class="t-section"><div class="t-sec-title">${sec.title}</div>`;
     vis.forEach(t=>{
       const done=!!prog[key(user,t.id)];
-      // Show role badge only in Setter flow (where tasks can be Kamil- or Mikolaj-specific)
-      const badge=(currentTeam!=='recruiter'&&t.role!=='shared')
-        ?`<span class="r-tag ${t.role==='kamil'?'r-k':'r-m'}">${t.role==='kamil'?'Kamil':'Mikolaj'}</span>`
+      // Role badge — generic for any number of named roles per team
+      const badge=(t.role!=='shared')
+        ?`<span class="r-tag ${ROLE_TAG_CLASS[t.role]||'r-k'}">${ROLE_LABELS[t.role]||t.role}</span>`
         :'';
       html+=`<div class="t-item${done?' done':''}" id="ti-${t.id}" onclick="toggle('${t.id}')">
         <div class="t-check"><svg class="chk" width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
@@ -872,7 +1032,10 @@ lp();
 
 // ─── PASSWORD GATE ────────────────────────────────────────────────────────────
 
-const PASSWORDS = {kamil:'kamilhf-052026', mikolaj:'hf052026-mikolaj', shalmali:'shalmalihf-082026'};
+const PASSWORDS = {
+  kamil:'kamilhf-052026', mikolaj:'hf052026-mikolaj', shalmali:'shalmalihf-082026',
+  hasif:'hasifhf-092026', raul:'raulhf-092026'
+};
 let pwTarget = null;
 
 function askPassword(u){
