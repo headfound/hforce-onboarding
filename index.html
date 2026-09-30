@@ -333,7 +333,7 @@ button{cursor:pointer;font-family:'Inter',sans-serif}
         <div class="bar-meta"><span>Overall Progress · Week 1</span><strong id="tpct">0%</strong></div>
         <div class="pbar"><div class="pbar-fill" id="tbar" style="width:0%"></div></div>
       </div>
-      <div class="s-hdr"><h2>Onboarding Week</h2><p>04–08 May 2026 · Click a day to open its checklist</p></div>
+      <div class="s-hdr"><h2>Onboarding Week</h2><p id="week-range">Click a day to open its checklist</p></div>
       <div class="week-list" id="dgrid"></div>
     </div>
 
@@ -1064,6 +1064,10 @@ function renderWeek(){
   const pct=totalProg(user);
   document.getElementById('tpct').textContent=pct+'%';
   document.getElementById('tbar').style.width=pct+'%';
+  const range=days.length
+    ?`${days[0].date} – ${days[days.length-1].date} 2026 · Click a day to open its checklist`
+    :'Click a day to open its checklist';
+  document.getElementById('week-range').textContent=range;
   document.getElementById('dgrid').innerHTML=days.map((d,i)=>{
     const{done,total,pct}=dayProg(user,d);
     const fill=pct===100?'linear-gradient(90deg,#276BAA,#8B67B7)':pct>0?'rgba(139,103,183,0.6)':'rgba(255,255,255,0.08)';
