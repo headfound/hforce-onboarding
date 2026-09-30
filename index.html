@@ -273,6 +273,11 @@ button{cursor:pointer;font-family:'Inter',sans-serif}
         <div class="p-name">Raul</div>
         <div class="p-role">Senior Data Analyst</div>
       </div>
+      <div class="p-card" onclick="askPassword('muhammad')">
+        <div class="avatar av-k">MH</div>
+        <div class="p-name">Muhammad Husnain</div>
+        <div class="p-role">Senior Data Engineer</div>
+      </div>
     </div>
     <div class="w-note">Progress is saved locally in your browser.</div>
     <button class="screen-back" onclick="showTeamSelect()">← Back to team selection</button>
@@ -846,6 +851,126 @@ const GOALS_DIG2 = {
   },
 };
 
+// ─── DIG3 · MUHAMMAD HUSNAIN — Week 1 (01–06 Oct 2026) ───────────────────────
+
+const DAYS_MH = [
+  {
+    dow:'Thu', date:'01 Oct', theme:'Welcome & Setup',
+    summary:'Team daily, welcome with Niklas, general onboarding, buddy Evelin, Databricks & Townhall',
+    sections:[
+      {title:'8:00 – 8:30 · Team Daily', tasks:[
+        {id:'m1a', text:'Team daily attended — introduced to the whole team', role:'shared'},
+      ]},
+      {title:'8:30 – 9:00 · Welcome at Hforce with Niklas', tasks:[
+        {id:'m1b', text:'Welcome session with Niklas — portal and first-day overview', role:'shared'},
+      ]},
+      {title:'9:30 – 12:00 · General Onboarding', tasks:[
+        {id:'m1c', text:'General onboarding session completed', role:'shared'},
+      ]},
+      {title:'13:00 – 13:30 · Buddy-Time with Evelin', tasks:[
+        {id:'m1d', text:'First 1:1 with buddy Evelin — questions from the morning addressed', role:'shared'},
+      ]},
+      {title:'13:30 – 14:30 · Onboarding Databricks & Data Architecture', tasks:[
+        {id:'m1e', text:'Databricks workspace and data architecture introduced', role:'shared'},
+      ]},
+      {title:'14:30 – 16:00 · Explore Independently', tasks:[
+        {id:'m1f', text:'Explored Databricks workspace and docs independently', role:'shared'},
+      ]},
+      {title:'16:00 – 17:30 · Townhall', tasks:[
+        {id:'m1g', text:'Company Townhall attended', role:'shared'},
+      ]},
+    ],
+    tip:'Buddy-Time with Evelin is a fixed 30-minute slot — outside of it you work independently, since the team is remote.'
+  },
+  {
+    dow:'Fri', date:'02 Oct', theme:'Pipelines & Tools',
+    summary:'Pipelines & ETLs, Linear, GoHighLevel — plus independent exploration between sessions',
+    sections:[
+      {title:'8:00 – 8:30 · Team Daily', tasks:[
+        {id:'m2a', text:'Team daily standup attended', role:'shared'},
+      ]},
+      {title:'8:30 – 9:00 · Documentation & Databricks', tasks:[
+        {id:'m2b', text:'Went through documentation and Databricks independently', role:'shared'},
+      ]},
+      {title:'9:00 – 10:00 · Onboarding Pipelines & ETLs', tasks:[
+        {id:'m2c', text:'Pipelines & ETLs onboarding completed', role:'shared'},
+      ]},
+      {title:'10:00 – 11:00 · Work / Explore', tasks:[
+        {id:'m2d', text:'Worked independently — revisited pipelines notes and open questions', role:'shared'},
+      ]},
+      {title:'11:00 – 11:30 · Onboarding Linear', tasks:[
+        {id:'m2e', text:'Linear introduced — workflow, board, and team conventions', role:'shared'},
+      ]},
+      {title:'11:30 – 15:00 · Work on First Tasks', tasks:[
+        {id:'m2f', text:'Worked independently on first assigned task', role:'shared'},
+      ]},
+      {title:'15:00 – 16:00 · Onboarding GoHighLevel', tasks:[
+        {id:'m2g', text:'GoHighLevel introduced', role:'shared'},
+      ]},
+      {title:'16:00 – 17:00 · Work on First Tasks', tasks:[
+        {id:'m2h', text:'Continued independent work on first task', role:'shared'},
+      ]},
+    ],
+    tip:'GoHighLevel is background context for the Sales stack — day-to-day work will centre on Databricks and pipelines.'
+  },
+  {
+    dow:'Mon', date:'05 Oct', theme:'Team Review & Company Knowledge',
+    summary:'Digital Setter Review & Retro, company-knowledge onboarding',
+    sections:[
+      {title:'8:00 – 8:30 · Team Daily', tasks:[
+        {id:'m3a', text:'Team daily standup attended', role:'shared'},
+      ]},
+      {title:'8:30 – 10:00 · Work on First Tasks', tasks:[
+        {id:'m3b', text:'Continued independent work on first task', role:'shared'},
+      ]},
+      {title:'10:00 – 12:00 · Digital Setter Review & Retro', tasks:[
+        {id:'m3c', text:'Digital Setter Review & Retro attended', role:'shared'},
+      ]},
+      {title:'13:00 – 14:00 · Onboarding Company-Knowledge', tasks:[
+        {id:'m3d', text:'Company-knowledge onboarding completed', role:'shared'},
+      ]},
+      {title:'14:00 – 17:00 · Work on First Tasks', tasks:[
+        {id:'m3e', text:'Continued independent work on first task', role:'shared'},
+      ]},
+    ],
+    tip:'Use the Review & Retro to see how the team plans and reflects — bring questions from your first days.'
+  },
+  {
+    dow:'Tue', date:'06 Oct', theme:'1:1 & Week 1 Retro',
+    summary:'1:1 with Niklas and first-week retro at Hforce',
+    sections:[
+      {title:'8:00 – 8:30 · Team Daily', tasks:[
+        {id:'m4a', text:'Team daily standup attended', role:'shared'},
+      ]},
+      {title:'8:30 – 10:30 · Work on First Tasks', tasks:[
+        {id:'m4b', text:'Continued independent work on first task', role:'shared'},
+      ]},
+      {title:'10:30 – 11:00 · 1:1 with Niklas', tasks:[
+        {id:'m4c', text:'1:1 with Niklas — expectations, role in the team, open questions', role:'shared'},
+      ]},
+      {title:'11:00 – 15:30 · Work on First Tasks', tasks:[
+        {id:'m4d', text:'Continued independent work on first task', role:'shared'},
+      ]},
+      {title:'15:30 – 16:00 · Retro: First Week at Hforce', tasks:[
+        {id:'m4e', text:'Week 1 retro — feedback, open points, outlook for Week 2', role:'shared'},
+      ]},
+      {title:'16:00 – 17:00 · Work / Documentation', tasks:[
+        {id:'m4f', text:'Documented what was learned this week', role:'shared'},
+      ]},
+    ],
+    tip:'Write down what stayed unclear this week — Week 2 planning builds directly on this retro.'
+  },
+];
+
+const GOALS_MH = {
+  muhammad:{
+    sub:'First 90 days as a Senior Data Engineer',
+    30:['Comfortable navigating the Databricks workspace and Unity Catalog','Completed first Data Engineering tasks independently','Understands the data architecture and key pipelines'],
+    60:['Actively contributing to pipeline improvements & delivering new solutions for our Sales team','Owns a defined area of the data pipeline'],
+    90:['End-to-end ownership of a pipeline area','Proposes improvements based on own analysis'],
+  },
+};
+
 // ─── STATE & HELPERS ──────────────────────────────────────────────────────────
 
 let user = null, currentTeam = null, prog = {};
@@ -858,8 +983,9 @@ const DAYS_BY_USER = {
   kamil: DAYS, mikolaj: DAYS,
   shalmali: DAYS_RECRUITER,
   hasif: DAYS_DIG2, raul: DAYS_DIG2,
+  muhammad: DAYS_MH,
 };
-const GOALS_ALL = { ...GOALS, ...GOALS_RECRUITER, ...GOALS_DIG2 };
+const GOALS_ALL = { ...GOALS, ...GOALS_RECRUITER, ...GOALS_DIG2, ...GOALS_MH };
 
 function getDays(){return DAYS_BY_USER[user] || DAYS}
 function getGoals(){return GOALS_ALL}
@@ -904,15 +1030,16 @@ function start(u){
 // ─── APP ──────────────────────────────────────────────────────────────────────
 
 function updateHeader(){
-  const nameMap={kamil:'Kamil',mikolaj:'Mikolaj',shalmali:'Shalmali',hasif:'Hasif',raul:'Raul'};
-  const roleMap={kamil:'Data Analyst',mikolaj:'Data Scientist',shalmali:'Data Engineer',hasif:'Senior Data Engineer',raul:'Senior Data Analyst'};
-  const initMap={kamil:'K',mikolaj:'M',shalmali:'S',hasif:'H',raul:'R'};
+  const nameMap={kamil:'Kamil',mikolaj:'Mikolaj',shalmali:'Shalmali',hasif:'Hasif',raul:'Raul',muhammad:'Muhammad Husnain'};
+  const roleMap={kamil:'Data Analyst',mikolaj:'Data Scientist',shalmali:'Data Engineer',hasif:'Senior Data Engineer',raul:'Senior Data Analyst',muhammad:'Senior Data Engineer'};
+  const initMap={kamil:'K',mikolaj:'M',shalmali:'S',hasif:'H',raul:'R',muhammad:'MH'};
   const styleMap={
     kamil:'background:var(--c1-dim);color:var(--c1-light)',
     mikolaj:'background:var(--c2-dim);color:var(--c2-light)',
     shalmali:'background:var(--c2-dim);color:var(--c2-light)',
     hasif:'background:var(--c1-dim);color:var(--c1-light)',
     raul:'background:var(--c2-dim);color:var(--c2-light)',
+    muhammad:'background:var(--c1-dim);color:var(--c1-light)',
   };
   const teamLabel={setter:'Hforce Data Team',recruiter:'Hforce Data Team'};
   document.getElementById('hdr-team-name').textContent=teamLabel[currentTeam]||'Hforce';
@@ -961,8 +1088,8 @@ function renderWeek(){
   }).join('');
 }
 
-const ROLE_LABELS = {kamil:'Kamil', mikolaj:'Mikolaj', hasif:'Hasif', raul:'Raul'};
-const ROLE_TAG_CLASS = {kamil:'r-k', mikolaj:'r-m', hasif:'r-k', raul:'r-m'};
+const ROLE_LABELS = {kamil:'Kamil', mikolaj:'Mikolaj', hasif:'Hasif', raul:'Raul', muhammad:'Muhammad'};
+const ROLE_TAG_CLASS = {kamil:'r-k', mikolaj:'r-m', hasif:'r-k', raul:'r-m', muhammad:'r-k'};
 
 function openDay(idx){
   const days=getDays();
@@ -1040,6 +1167,7 @@ const PASSWORD_HASHES = {
   shalmali:'804c5e77f523e1bbed3156c38f282993a675811868bb6e6b90b8e5cc8a61b57f',
   hasif:'0fd896521842e0534248e1b65be278b5613fda07fff89a275e1224266ac512be',
   raul:'d5a05ea44d9c10a7216f34da18db8e118d36a66051fef13743bbc9826bc5ca0d',
+  muhammad:'77b993ff8e5d26e034ffec6d0835c2565ee0fd3357ab45b11a0500f38fae7f82',
 };
 let pwTarget = null;
 
@@ -1053,9 +1181,9 @@ function askPassword(u){
   const overlay=document.getElementById('pw-overlay');
   overlay.style.display='flex';
   const av=document.getElementById('pw-avatar');
-  const initials={kamil:'K',mikolaj:'M',shalmali:'S'};
+  const initials={kamil:'K',mikolaj:'M',shalmali:'S',hasif:'H',raul:'R',muhammad:'MH'};
   av.textContent=initials[u]||(u[0]||'?').toUpperCase();
-  av.style.cssText=u==='kamil'
+  av.style.cssText=(u==='kamil'||u==='hasif'||u==='muhammad')
     ?'width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;margin:0 auto 1rem;font-family:Manrope,sans-serif;background:linear-gradient(135deg,#276BAA,#5B4A8A);color:#fff;'
     :'width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;margin:0 auto 1rem;font-family:Manrope,sans-serif;background:linear-gradient(135deg,#5B4A8A,#8B67B7);color:#fff;';
   document.getElementById('pw-input').value='';
